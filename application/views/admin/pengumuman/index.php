@@ -20,9 +20,8 @@
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
-						</li>
-						<li>Produk</li>
-						<li class="active">Data Produk</li>
+						</li>						
+						<li class="active">Pengumuman</li>
 					</ul><!-- /.breadcrumb -->
 
 					<div class="nav-search" id="nav-search">
@@ -136,7 +135,15 @@
 								<td width="300px"><?= $p->judul ?></td>
 								<td width="150px"><?= $p->tgl_posting ?></td>
 								<td width="300px"><?= $p->keterangan ?></td>
-								<td> <img width="100px" src="<?= base_url()."gambar/".$p->foto ?>"> </td>
+								<td>
+									<center>
+									<?php if ($p->foto !== ""): ?>										
+										<img width="100px" src="<?= base_url()."assets/gambar/".$p->foto ?>"><br><br>
+									<?php else: ?>
+										<img width="100px" src="<?= base_url()."assets/gambar/noimage.png" ?>"><br><br>
+									<?php endif; ?>
+									</center>
+								</td>
 								<td width="150px">
 									<div class="hidden-sm hidden-xs btn-group">
 										<!-- <button class="btn btn-xs btn-success">

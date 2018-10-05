@@ -21,8 +21,8 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
 						</li>
-						<li>Produk</li>
-						<li class="active">Data Produk</li>
+						<li><a href="<?= base_url()."admin/pengumuman" ?>">Pengumuman</a></li>
+						<li class="active">Edit Pengumuman</li>
 					</ul><!-- /.breadcrumb -->
 
 					<div class="nav-search" id="nav-search">
@@ -84,7 +84,11 @@
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Foto </label>
 
 									<div class="col-sm-9">
-										<img width="200px" src="<?= base_url()."gambar/".$pengumuman[0]->foto ?>"><br><br>
+										<?php if ($pengumuman[0]->foto !== ""): ?>
+											<img width="200px" src="<?= base_url()."assets/gambar/".$pengumuman[0]->foto ?>"><br><br>
+										<?php else: ?>
+											<img width="200px" src="<?= base_url()."assets/gambar/noimage.png" ?>"><br><br>
+										<?php endif; ?>
 										<input name="foto" type="file" id="form-field-1" /><br>
 										<b>Kosongkan jika tidak diubah. *)</b>
 									</div>

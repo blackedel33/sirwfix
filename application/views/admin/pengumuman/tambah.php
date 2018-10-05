@@ -21,8 +21,8 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
 						</li>
-						<li>Produk</li>
-						<li class="active">Data Produk</li>
+						<li><a href="<?= base_url()."admin/pengumuman" ?>">Pengumuman</a></li>
+						<li class="active">Tambah Pengumuman</li>
 					</ul><!-- /.breadcrumb -->
 
 					<div class="nav-search" id="nav-search">

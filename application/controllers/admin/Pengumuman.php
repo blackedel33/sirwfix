@@ -22,6 +22,7 @@ class Pengumuman extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Pengumuman_model', 'pengumuman');
+		$this->load->library('upload');
 	}
 
 	public function index()
@@ -35,31 +36,21 @@ class Pengumuman extends CI_Controller {
 	}
 
 	public function simpan(){
-		// $new_name = time().$_FILES["foto"]['name'];
-		$ext = pathinfo($_FILES["foto"]['name'], PATHINFO_EXTENSION);
-
-		$config['file_name'] = time().".".$ext;
-		$config['upload_path']          = './gambar/';
-		$config['allowed_types']        = 'gif|jpg|png';
-		// $config['max_size']             = 100;
-		// $config['max_width']            = 1024;
-		// $config['max_height']           = 768;
- 
-		$this->load->library('upload', $config);
- 
-		if ( ! $this->upload->do_upload('foto')){
-			$error = array('error' => $this->upload->display_errors());
-			echo "<pre>";
-			print_r($error);
-		}else{
-			$_POST["foto"] = $config['file_name'];
-			$this->pengumuman->save($_POST);
-
-			echo "<script>
-			alert('Data pengumuman berhasil ditambahkan!');
-			window.location.href='".base_url('admin/pengumuman')."';
-			</script>";
+		// jika ada gambar yang diupload
+		if ($_FILES["foto"]['name'] !== "") {
+			$ext = pathinfo($_FILES["foto"]['name'], PATHINFO_EXTENSION);
+			$filename = time().".".$ext;
+			$this->upload_image("foto", $filename);
+			$_POST["foto"] = $filename;	
 		}
+
+		// simpan data ke database
+		$this->pengumuman->save($_POST);
+
+		echo "<script>
+		alert('Data pengumuman berhasil ditambahkan!');
+		window.location.href='".base_url('admin/pengumuman')."';
+		</script>";
 	}
 
 	public function edit($id){
@@ -71,27 +62,12 @@ class Pengumuman extends CI_Controller {
 		
 		if ( $_FILES["foto"]["name"] !== "" ) {	// jika ada gambar
 			$ext = pathinfo($_FILES["foto"]['name'], PATHINFO_EXTENSION);
-
-			$config['file_name'] = time().".".$ext;
-			$config['upload_path']          = './gambar/';
-			$config['allowed_types']        = 'gif|jpg|png';
-			// $config['max_size']             = 100;
-			// $config['max_width']            = 1024;
-			// $config['max_height']           = 768;
-	 
-			$this->load->library('upload', $config);
-	 
-			if ( ! $this->upload->do_upload('foto')){
-				$error = array('error' => $this->upload->display_errors());
-				echo "<pre>";
-				print_r($error);
-			}else{
-				$_POST["foto"] = $config['file_name'];
-				$this->pengumuman->update($_POST, $id);
-			}
-		} else{
-			$this->pengumuman->update($_POST, $id);
+			$filename = time().".".$ext;
+			$this->upload_image("foto", $filename);
+			$_POST["foto"] = $filename;		
 		}
+
+		$this->pengumuman->update($_POST, $id);
 
 		echo "<script>
 			alert('Data pengumuman berhasil diubah!');
@@ -107,4 +83,47 @@ class Pengumuman extends CI_Controller {
 			window.location.href='".base_url('admin/pengumuman')."';
 			</script>";
 	}
+
+	function upload_image($fileinput, $filename){
+		$config['file_name'] = $filename;
+        $config['upload_path'] = './assets/gambar/'; //path folder
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
+
+        // $config['encrypt_name'] = TRUE; //Enkripsi nama yang terupload
+ 
+        $this->upload->initialize($config);
+        if(!empty($_FILES[$fileinput]['name'])){
+ 
+            if ($this->upload->do_upload($fileinput)){
+                $gbr = $this->upload->data();
+                //Compress Image
+                $config['image_library']='gd2';
+                $config['source_image']='./assets/gambar/'.$gbr['file_name'];
+                $config['create_thumb']= FALSE;
+                $config['maintain_ratio']= TRUE;
+                $config['quality']= '50%';
+                $config['width']= 600;
+                $config['height']= 400;
+                $config['new_image']= './assets/gambar/'.$gbr['file_name'];
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
+ 
+                // $gambar=$gbr['file_name'];
+                // $judul=$this->input->post('xjudul');
+                // $this->m_upload->simpan_upload($judul,$gambar);
+                // echo "Image berhasil diupload";
+                return $filename;
+            } else{
+
+				$error = array('error' => $this->upload->display_errors());
+				echo "<pre>";
+				print_r($error);            	
+            }
+                      
+        }else{
+            // echo "Image yang diupload kosong";
+            return "error";
+        }
+                 
+    }
 }
