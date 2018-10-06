@@ -21,6 +21,16 @@ class Pengumuman extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+
+
+		// cek jika bukan rw, maka tidak bisa akses
+		$user = $this->ion_auth->user()->row();
+		$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
+		// print_r($user_groups[0]->name);
+		if ( $user_groups[0]->name != "rw" ) {
+			redirect('/');
+		}
+
 		$this->load->model('Pengumuman_model', 'pengumuman');
 		$this->load->library('upload');
 	}
