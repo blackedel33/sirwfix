@@ -1,3 +1,9 @@
+<?php
+$user = $this->ion_auth->user()->row();
+$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
+$hak_akses = $user_groups[0]->name;
+?>
+
 <div id="navbar" class="navbar navbar-default          ace-save-state">
   <div class="navbar-container ace-save-state" id="navbar-container">
     <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
@@ -28,7 +34,7 @@
             <img class="nav-user-photo" src="<?php echo base_url('assets/template/back') ?>/images/avatars/user.jpg" alt="Jason's Photo" />
             <span class="user-info">
               <small>Selamat datang,</small>
-              Jason
+              <?= $hak_akses ?>
             </span>
 
             <i class="ace-icon fa fa-caret-down"></i>

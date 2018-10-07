@@ -38,11 +38,11 @@ class Pengumuman extends CI_Controller {
 	public function index()
 	{
 		$data["pengumuman"] = $this->pengumuman->get();
-		$this->load->view('admin/pengumuman/index', $data);
+		$this->load->view('admin/rw/pengumuman/index', $data);
 	}
 
 	public function tambah(){
-		$this->load->view('admin/pengumuman/tambah');
+		$this->load->view('admin/rw/pengumuman/tambah');
 	}
 
 	public function simpan(){
@@ -59,13 +59,13 @@ class Pengumuman extends CI_Controller {
 
 		echo "<script>
 		alert('Data pengumuman berhasil ditambahkan!');
-		window.location.href='".base_url('admin/pengumuman')."';
+		window.location.href='".base_url('rw/pengumuman')."';
 		</script>";
 	}
 
 	public function edit($id){
 		$data["pengumuman"] = $this->pengumuman->get_by_id($id);		
-		$this->load->view('admin/pengumuman/edit', $data);
+		$this->load->view('admin/rw/pengumuman/edit', $data);
 	}
 
 	public function update($id){
@@ -81,7 +81,7 @@ class Pengumuman extends CI_Controller {
 
 		echo "<script>
 			alert('Data pengumuman berhasil diubah!');
-			window.location.href='".base_url('admin/pengumuman')."';
+			window.location.href='".base_url('rw/pengumuman')."';
 			</script>";
 	}
 
@@ -90,7 +90,7 @@ class Pengumuman extends CI_Controller {
 
 		echo "<script>
 			alert('Data pengumuman berhasil dihapus!');
-			window.location.href='".base_url('admin/pengumuman')."';
+			window.location.href='".base_url('rw/pengumuman')."';
 			</script>";
 	}
 

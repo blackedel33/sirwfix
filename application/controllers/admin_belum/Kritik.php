@@ -13,11 +13,11 @@ class Kritik extends CI_Controller {
 	public function index()
 	{
 		$data["kritik"] = $this->kritik->get();
-		$this->load->view('admin/kritik/index', $data);
+		$this->load->view('admin/admin/kritik/index', $data);
 	}
 
 	public function tambah(){
-		$this->load->view('admin/kritik/tambah');
+		$this->load->view('admin/admin/kritik/tambah');
 	}
 
 	public function simpan(){
@@ -50,7 +50,7 @@ class Kritik extends CI_Controller {
 
 	public function edit($id){
 		$data["kritik"] = $this->kritik->get_by_id($id);		
-		$this->load->view('admin/kritik/edit', $data);
+		$this->load->view('admin/admin/kritik/edit', $data);
 	}
 
 	public function update($id){

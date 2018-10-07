@@ -77,10 +77,16 @@ class Auth extends CI_Controller
 				$user = $this->ion_auth->user()->row();
 				$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
 				// print_r($user_groups[0]->name);
-				if ( $user_groups[0]->name == "warga" ) {
-					echo "warga";
-				} else{					
+				if ( $user_groups[0]->name == "members" ) {
+					redirect('/warga/home', 'refresh');
+				} else if ( $user_groups[0]->name == "admin" ) {
 					redirect('/admin/home', 'refresh');
+				} else if ( $user_groups[0]->name == "sekretaris" ) {
+					redirect('/sekretaris/home', 'refresh');
+				} else if ( $user_groups[0]->name == "bendahara" ) {
+					redirect('/bendahara/home', 'refresh');
+				} else if ( $user_groups[0]->name == "rw" ) {
+					redirect('/rw/home', 'refresh');
 				}
 			
 			}
