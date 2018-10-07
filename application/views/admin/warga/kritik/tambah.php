@@ -21,8 +21,8 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
 						</li>
-						<li><a href="<?= base_url()."admin/pengumuman" ?>">Pengumuman</a></li>
-						<li class="active">Tambah Pengumuman</li>
+						<li>Produk</li>
+						<li class="active">Data Produk</li>
 					</ul><!-- /.breadcrumb -->
 
 					<div class="nav-search" id="nav-search">
@@ -39,19 +39,20 @@
 
 					<div class="page-header">
 						<h1>
-							Pengumuman
+							Komentar
 							<small>
 								<i class="ace-icon fa fa-angle-double-right"></i>
-								Tambah pengumuman
+								Tambah Komentar
 							</small>
 						</h1>
 					</div><!-- /.page-header -->
 
 					<div class="row">
 						<div class="col-md-12">
-							<form action="<?= base_url() ?>admin/pengumuman/simpan" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+							<form action="<?= base_url() ?>warga/kritik/simpan" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+								<input type="hidden" name="id_warga" value="<?= $_SESSION["id"] ?>">
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Judul Pengumuman </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Judul Kritik / Saran </label>
 
 									<div class="col-sm-9">
 										<input name="judul" type="text" id="form-field-1" class="col-xs-10 col-sm-5" />
@@ -64,29 +65,23 @@
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal Posting </label>
 
 									<div class="col-sm-9">
-										<input name="tgl_posting" type="text" id="form-field-1" class="col-xs-10 col-sm-5" value="<?= date("Y-m-d") ?>" readonly />
+										<input name="tgl_komentar" type="text" id="form-field-1" class="col-xs-10 col-sm-5" value="<?= date("Y-m-d") ?>" readonly />
 									</div>
 								</div>
 
 								<div class="space-4"></div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Keterangan </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Isi </label>
 
 									<div class="col-sm-9">										
-										<textarea name="keterangan" class="col-xs-10 col-sm-5"></textarea>
+										<textarea name="isi" class="col-xs-10 col-sm-5"></textarea>
 									</div>
 								</div>
 
 								<div class="space-4"></div>
 						
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Foto </label>
-
-									<div class="col-sm-9">
-										<input name="foto" type="file" id="form-field-1" class="col-xs-10 col-sm-5" />
-									</div>
-								</div>
+								
 
 								<div class="space-4"></div>
 

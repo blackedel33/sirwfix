@@ -108,7 +108,7 @@
 						</h1>
 					</div><!-- /.page-header -->
 					
-						<a href="<?= base_url() ?>admin/pengumuman/tambah">
+						<a href="<?= base_url() ?>rw/pengumuman/tambah">
 							<button type="button" class="btn btn-sm btn-success"><i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah pengumuman
 							</button>
 						</a>
@@ -150,13 +150,13 @@
 											<i class="ace-icon fa fa-check bigger-120"></i>
 										</button> -->
 
-										<a href="<?= base_url()."admin/pengumuman/edit/".$p->id ?>">
+										<a href="<?= base_url()."rw/pengumuman/edit/".$p->id ?>">
 											<button class="btn btn-xs btn-info">
 												<i class="ace-icon fa fa-pencil bigger-120"></i>
 											</button>
 										</a>										
 
-										<a href="<?= base_url()."admin/pengumuman/hapus/".$p->id ?>" onClick="return confirm('Hapus pengumuman ini?')">
+										<a href="<?= base_url()."rw/pengumuman/hapus/".$p->id ?>" onClick="return confirm('Hapus pengumuman ini?')">
 											<button class="btn btn-xs btn-danger">
 												<i class="ace-icon fa fa-trash-o bigger-120"></i>
 											</button>

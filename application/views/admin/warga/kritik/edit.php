@@ -49,7 +49,7 @@
 
 					<div class="row">
 						<div class="col-md-12">
-							<form action="<?= base_url() ?>admin/kritik/update/<?= $kritik[0]->id ?>" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+							<form action="<?= base_url() ?>warga/kritik/update/<?= $kritik[0]->id ?>" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Judul Komentar </label>
 

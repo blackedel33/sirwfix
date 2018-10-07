@@ -1,7 +1,11 @@
 <?php
-$user = $this->ion_auth->user()->row();
-$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
-$hak_akses = $user_groups[0]->name;
+if ($this->ion_auth->logged_in()){
+  $user = $this->ion_auth->user()->row();
+  $user_groups = $this->ion_auth->get_users_groups($user->id)->result();
+  $hak_akses = $user_groups[0]->name;
+} else{
+  $hak_akses = "warga";
+}
 ?>
 
 <div id="navbar" class="navbar navbar-default          ace-save-state">
@@ -34,7 +38,10 @@ $hak_akses = $user_groups[0]->name;
             <img class="nav-user-photo" src="<?php echo base_url('assets/template/back') ?>/images/avatars/user.jpg" alt="Jason's Photo" />
             <span class="user-info">
               <small>Selamat datang,</small>
-              <?= $hak_akses ?>
+              <?php
+              $usr = ($hak_akses == "warga") ? $_SESSION["nama"] : $hak_akses;
+              echo $usr;
+              ?>
             </span>
 
             <i class="ace-icon fa fa-caret-down"></i>

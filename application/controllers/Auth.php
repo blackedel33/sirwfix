@@ -92,11 +92,37 @@ class Auth extends CI_Controller
 			}
 			else
 			{
-				// if the login was un-successful
-				// redirect them back to the login page
-				// $this->session->set_flashdata('message', $this->ion_auth->errors());
-				$this->session->set_flashdata('message', "Username atau password salah");
-				redirect('auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
+				$this->load->model("Warga_model", "warga");
+
+				$login = $this->warga->get_login($_POST["identity"], $_POST["password"]);
+				$num_rows = count($login);
+				
+				if ( $num_rows == 1 ) {			
+
+					// simpan di session
+					$data_warga = array(
+					        'id'  => $login[0]->id,
+					        'nik' => $login[0]->nik,
+					        'nama' => $login[0]->nama,
+					        'email' => $login[0]->email,
+					        'group' => 'warga',
+					);
+
+					// echo "<pre>";
+					// print_r($data_warga);
+
+					$this->session->set_userdata($data_warga);
+
+					redirect('/warga/home', 'refresh');
+				} else{
+
+					// if the login was un-successful
+					// redirect them back to the login page
+					// $this->session->set_flashdata('message', $this->ion_auth->errors());
+					$this->session->set_flashdata('message', "Username atau password salah");
+					redirect('auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
+				}
+			
 			}
 		}
 		else
@@ -128,6 +154,15 @@ class Auth extends CI_Controller
 
 		// log the user out
 		$logout = $this->ion_auth->logout();
+
+		// logout warga
+		unset(
+			$_SESSION["id"],
+			$_SESSION["nik"],
+			$_SESSION["nama"],
+			$_SESSION["email"],
+			$_SESSION["group"]
+		);
 
 		// redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());

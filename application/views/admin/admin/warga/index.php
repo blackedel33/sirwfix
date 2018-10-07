@@ -20,9 +20,8 @@
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
-						</li>
-						<li>Produk</li>
-						<li class="active">Data Kritik</li>
+						</li>						
+						<li class="active">Warga</li>
 					</ul><!-- /.breadcrumb -->
 
 					<div class="nav-search" id="nav-search">
@@ -105,12 +104,12 @@
 
 					<div class="page-header">
 						<h1>
-							Kritik Saran
+							Warga
 						</h1>
 					</div><!-- /.page-header -->
 					
-						<a href="<?= base_url() ?>admin/kritik/tambah">
-							<button type="button" class="btn btn-sm btn-success"><i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah Kritik
+						<a href="<?= base_url() ?>admin/warga/tambah">
+							<button type="button" class="btn btn-sm btn-success"><i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah warga
 							</button>
 						</a>
 						<br><br>
@@ -119,9 +118,10 @@
 						<thead>
 							<tr>
 								<th class="detail-col">No.</th>
-								<th>Judul</th>
-								<th>Tgl. </th>								
-								<th>Isi</th>
+								<th>NIK</th>
+								<th>Nama</th>								
+								<th>L/P</th>
+								<th>Email</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -129,26 +129,26 @@
 						<tbody>						
 						<?php  
 						$i = 1;
-						foreach ($kritik as $k): ?>
+						foreach ($warga as $w): ?>
 							<tr>
 								<td><?= $i ?></td>
-								<td width="300px"><?= $k->judul ?></td>
-								<td width="150px"><?= $k->tgl_komentar ?></td>
-								<td width="300px"><?= $k->isi ?></td>
-								
+								<td width="300px"><?= $w->nik ?></td>
+								<td width="150px"><?= $w->nama ?></td>
+								<td width="300px"><?= $w->jenis_kelamin ?></td>
+								<td><?= $w->email ?></td>							
 								<td width="150px">
 									<div class="hidden-sm hidden-xs btn-group">
 										<!-- <button class="btn btn-xs btn-success">
 											<i class="ace-icon fa fa-check bigger-120"></i>
 										</button> -->
 
-										<a href="<?= base_url()."admin/kritik/edit/".$k->id ?>">
+										<a href="<?= base_url()."admin/warga/edit/".$w->id ?>">
 											<button class="btn btn-xs btn-info">
 												<i class="ace-icon fa fa-pencil bigger-120"></i>
 											</button>
 										</a>										
 
-										<a href="<?= base_url()."admin/kritik/hapus/".$k->id ?>" onClick="return confirm('Hapus pengumuman ini?')">
+										<a href="<?= base_url()."admin/warga/hapus/".$w->id ?>" onClick="return confirm('Hapus warga ini?')">
 											<button class="btn btn-xs btn-danger">
 												<i class="ace-icon fa fa-trash-o bigger-120"></i>
 											</button>

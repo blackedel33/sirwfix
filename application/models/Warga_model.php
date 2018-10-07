@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kritik_model extends CI_Model {
+class Warga_model extends CI_Model {
 
 	public function get(){
 		$this->db->order_by('id');
-		$query = $this->db->get('komentar');
+		$query = $this->db->get('warga');
 		return $query->result();
 		// $query->free_result();
 	}
@@ -13,31 +13,32 @@ class Kritik_model extends CI_Model {
 	public function get_by_id($id){
 		$this->db->order_by('id');
 		$this->db->where('id', $id);
-		$query = $this->db->get('komentar');
-		return $query->result();
-		// $query->free_result();
-	}
-
-	public function get_by_warga($id_warga){
-		$this->db->order_by('id');
-		$this->db->where('id_warga', $id_warga);
-		$query = $this->db->get('komentar');
+		$query = $this->db->get('warga');
 		return $query->result();
 		// $query->free_result();
 	}
 
 	public function save($data){
-		$this->db->insert('komentar', $data);
+		$this->db->insert('warga', $data);
 	}
 
 	public function update($data, $id){
 		$this->db->where('id', $id);
-		$this->db->update('komentar', $data);
+		$this->db->update('warga', $data);
 	}
 
 	public function delete($id){
 		$this->db->where('id', $id);
-		$this->db->delete('komentar');
+		$this->db->delete('warga');
+	}
+
+
+	public function get_login($email, $password){		
+		$this->db->where('email', $email);
+		$this->db->where('password', md5($password));
+		$query = $this->db->get('warga');
+		return $query->result();
+		// $query->free_result();
 	}
 
 	// public function save_barang($data){

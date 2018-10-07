@@ -21,7 +21,7 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
 						</li>
-						<li><a href="<?= base_url()."admin/pengumuman" ?>">Pengumuman</a></li>
+						<li><a href="<?= base_url()."rw/pengumuman" ?>">Pengumuman</a></li>
 						<li class="active">Edit Pengumuman</li>
 					</ul><!-- /.breadcrumb -->
 
@@ -49,7 +49,7 @@
 
 					<div class="row">
 						<div class="col-md-12">
-							<form action="<?= base_url() ?>admin/pengumuman/update/<?= $pengumuman[0]->id ?>" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+							<form action="<?= base_url() ?>rw/pengumuman/update/<?= $pengumuman[0]->id ?>" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Judul Pengumuman </label>
 

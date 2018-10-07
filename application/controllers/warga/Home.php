@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Produk extends CI_Controller {
+class Home extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -18,8 +18,19 @@ class Produk extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	public function __construct(){
+		parent::__construct();
+
+		if (!isset($_SESSION["group"]))
+		{
+			redirect('/auth/login');
+		}
+	}
+
 	public function index()
 	{
-		$this->load->view('admin/produk/body');
+		$this->load->view('admin/warga/index');
 	}
+
 }

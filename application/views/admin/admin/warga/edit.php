@@ -21,8 +21,8 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
 						</li>
-						<li>Produk</li>
-						<li class="active">Data Produk</li>
+						<li><a href="<?= base_url()."admin/warga" ?>">Warga</a></li>
+						<li class="active">Edit Warga</li>
 					</ul><!-- /.breadcrumb -->
 
 					<div class="nav-search" id="nav-search">
@@ -39,50 +39,80 @@
 
 					<div class="page-header">
 						<h1>
-							Komentar
+							Warga
 							<small>
 								<i class="ace-icon fa fa-angle-double-right"></i>
-								Tambah Komentar
+								Edit warga
 							</small>
 						</h1>
 					</div><!-- /.page-header -->
 
 					<div class="row">
 						<div class="col-md-12">
-							<form action="<?= base_url() ?>admin/kritik/simpan" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+							<form action="<?= base_url() ?>admin/warga/update/<?= $warga[0]->id ?>" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Judul Kritik / Saran </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> NIK </label>
 
 									<div class="col-sm-9">
-										<input name="judul" type="text" id="form-field-1" class="col-xs-10 col-sm-5" />
+										<input name="nik" value="<?= $warga[0]->nik ?>" type="number" id="form-field-1" class="col-xs-10 col-sm-5" />
 									</div>
 								</div>
 
 								<div class="space-4"></div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal Posting </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama </label>
 
 									<div class="col-sm-9">
-										<input name="tgl_komentar" type="text" id="form-field-1" class="col-xs-10 col-sm-5" value="<?= date("Y-m-d") ?>" readonly />
+										<input value="<?= $warga[0]->nama ?>" name="nama" type="text" id="form-field-1" class="col-xs-10 col-sm-5" />
 									</div>
-								</div>
-
-								<div class="space-4"></div>
+								</div>							
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Isi </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Jenis Kelamin </label>
 
 									<div class="col-sm-9">										
-										<textarea name="isi" class="col-xs-10 col-sm-5"></textarea>
+										<?php
+										$options = array(
+										        'L'         => 'Laki-laki',
+										        'P'           => 'Perempuan',
+										);
+
+										echo form_dropdown('jenis_kelamin', $options, $warga[0]->jenis_kelamin);
+										?>
+									</div>
+								</div>
+																
+								<div class="space-4"></div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Alamat </label>
+
+									<div class="col-sm-9">
+										<input value="<?= $warga[0]->alamat ?>" name="alamat" type="text" id="form-field-1" class="col-xs-10 col-sm-5" />
 									</div>
 								</div>
 
 								<div class="space-4"></div>
-						
-								
 
-								<div class="space-4"></div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Email </label>
+
+									<div class="col-sm-9">
+										<input value="<?= $warga[0]->email ?>" name="email" type="text" id="form-field-1" class="col-xs-10 col-sm-5" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Password </label>
+
+									<div class="col-sm-9">
+										<input name="password" type="password" id="form-field-1" />
+										<br>
+										<b>Kosongkan jika tidak diubah. *)</b>
+									</div>								
+
+								</div>							
 
 								<div class="clearfix form-actions">
 									<div class="col-md-offset-3 col-md-9">
