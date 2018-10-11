@@ -1,43 +1,35 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kritik_model extends CI_Model {
+class pembayaran_model extends CI_Model {
 
 	public function get(){
-		$this->db->order_by('id', 'DESC');
-		$query = $this->db->get('komentar');
+		$this->db->order_by('id_bayar');
+		$query = $this->db->get('tabel_pembayaran');
 		return $query->result();
 		// $query->free_result();
 	}
 
 	public function get_by_id($id){
-		$this->db->order_by('id');
-		$this->db->where('id', $id);
-		$query = $this->db->get('komentar');
-		return $query->result();
-		// $query->free_result();
-	}
-
-	public function get_by_warga($id_warga){
-		$this->db->order_by('id');
-		$this->db->where('id_warga', $id_warga);
-		$query = $this->db->get('komentar');
+		$this->db->order_by('id_bayar');
+		$this->db->where('id_bayar', $id);
+		$query = $this->db->get('tabel_pembayaran');
 		return $query->result();
 		// $query->free_result();
 	}
 
 	public function save($data){
-		$this->db->insert('komentar', $data);
+		$this->db->insert('tabel_pembayaran', $data);
 	}
 
 	public function update($data, $id){
-		$this->db->where('id', $id);
-		$this->db->update('komentar', $data);
+		$this->db->where('id_bayar', $id);
+		$this->db->update('tabel_pembayaran', $data);
 	}
 
 	public function delete($id){
-		$this->db->where('id', $id);
-		$this->db->delete('komentar');
+		$this->db->where('id_bayar', $id);
+		$this->db->delete('tabel_pembayaran');
 	}
 
 	// public function save_barang($data){

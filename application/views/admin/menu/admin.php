@@ -65,6 +65,9 @@
 
           <b class="arrow"></b>
         </li>
+
+         
+
         <li class="">
          
 
@@ -102,6 +105,25 @@
           <a href="tables.html">
             <i class="menu-icon fa fa-caret-right"></i>
             Upload Bukti Pembayaran
+          </a>
+
+          <b class="arrow"></b>
+        </li>
+
+        <li class="">
+          <a href="<?= base_url() ?>admin/warga/tambah">
+            <i class="menu-icon fa fa-caret-right"></i>
+            Tambah Warga
+          </a>
+
+          <b class="arrow"></b>
+        </li>
+
+
+        <li class="">
+          <a href="<?= base_url() ?>admin/warga/">
+            <i class="menu-icon fa fa-caret-right"></i>
+            Data Warga
           </a>
 
           <b class="arrow"></b>

@@ -24,12 +24,12 @@ class Pengumuman extends CI_Controller {
 
 
 		// cek jika bukan rw, maka tidak bisa akses
-		$user = $this->ion_auth->user()->row();
-		$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
-		// print_r($user_groups[0]->name);
-		if ( $user_groups[0]->name != "rw" ) {
-			redirect('/');
-		}
+		// $user = $this->ion_auth->user()->row();
+		// $user_groups = $this->ion_auth->get_users_groups($user->id)->result();
+		//  print_r($user_groups[0]->name);
+		// if ( $user_groups[0]->name != "warga" ) {
+		// 	redirect('/');
+		// }
 
 		$this->load->model('Pengumuman_model', 'pengumuman');
 		$this->load->library('upload');
@@ -38,7 +38,7 @@ class Pengumuman extends CI_Controller {
 	public function index()
 	{
 		$data["pengumuman"] = $this->pengumuman->get();
-		$this->load->view('admin/rw/pengumuman/index', $data);
+		$this->load->view('admin/warga/pengumuman/index', $data);
 	}
 
 	public function tambah(){
