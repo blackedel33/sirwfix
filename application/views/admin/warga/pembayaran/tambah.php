@@ -21,7 +21,7 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
 						</li>
-						<li><a href="<?= base_url()."rw/pembayaran" ?>">pembayaran</a></li>
+						<li><a href="<?= base_url()."warga/pembayaran" ?>">pembayaran</a></li>
 						<li class="active">Tambah pembayaran</li>
 					</ul><!-- /.breadcrumb -->
 
@@ -49,19 +49,50 @@
 
 					<div class="row">
 						<div class="col-md-12">
-							<form action="<?= base_url() ?>rw/pembayaran/simpan" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+							<form action="<?= base_url() ?>warga/pembayaran/simpan" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+								<input type="hidden" name="id_warga" value="<?= $id_warga ?>">
+								<input type="hidden" name="bulan" value="<?= $bulan_ke ?>">
+								<input type="hidden" name="tahun" value="<?= date("Y") ?>">
 								<div class="form-group">
-									<!-- <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Judul pembayaran </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Pembayaran Bulan ke </label>
 
 									<div class="col-sm-9">
-										<sinput name="judul" type="text" id="form-field-1" class="col-xs-10 col-sm-5" />
-									</div> -->
+										<input value="<?= $bulan[$bulan_ke] ?>" type="text" id="form-field-1" class="col-xs-10 col-sm-5" readonly />
+									</div>
+								</div>
+								<hr>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nominal </label>
+
+									<div class="col-sm-9">
+										<input name="nominal" type="text" id="form-field-1" class="col-xs-10 col-sm-5" value="<?= $nominal ?>" />
+									</div>
 								</div>
 
 								<div class="space-4"></div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal Posting </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Denda </label>
+
+									<div class="col-sm-9">									
+										<input name="denda" type="text" id="form-field-1" class="col-xs-10 col-sm-5" value="<?= $denda ?>" readonly />
+									</div>
+								</div>
+
+								<hr>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Total yang dibayarkan </label>
+
+									<div class="col-sm-9">									
+										<input name="denda" type="text" id="form-field-1" class="col-xs-10 col-sm-5" value="<?= $total_bayar ?>" readonly />
+									</div>
+								</div>
+
+								<hr>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal Pembayaran </label>
 
 									<div class="col-sm-9">
 										<input name="tgl_bayar" type="text" id="form-field-1" class="col-xs-10 col-sm-5" value="<?= date("Y-m-d") ?>" readonly />
@@ -78,16 +109,17 @@
 									</div>
 								</div>
 
+
 								<div class="space-4"></div>
-						
+
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> foto_bukti </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Foto Bukti </label>
 
 									<div class="col-sm-9">
 										<input name="foto_bukti" type="file" id="form-field-1" class="col-xs-10 col-sm-5" />
 									</div>
 								</div>
-
+						
 								<div class="space-4"></div>
 
 								<div class="clearfix form-actions">

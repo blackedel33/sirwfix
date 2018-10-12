@@ -21,8 +21,8 @@
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
 						</li>
-						<li><a href="<?= base_url()."rw/pengumuman" ?>">Pengumuman</a></li>
-						<li class="active">Edit Pengumuman</li>
+						<li><a href="<?= base_url()."warga/pembayaran" ?>">pembayaran</a></li>
+						<li class="active">Edit pembayaran</li>
 					</ul><!-- /.breadcrumb -->
 
 					<div class="nav-search" id="nav-search">
@@ -39,32 +39,44 @@
 
 					<div class="page-header">
 						<h1>
-							Pengumuman
+							pembayaran
 							<small>
 								<i class="ace-icon fa fa-angle-double-right"></i>
-								Edit pengumuman
+								Edit pembayaran
 							</small>
 						</h1>
 					</div><!-- /.page-header -->
 
 					<div class="row">
 						<div class="col-md-12">
-							<form action="<?= base_url() ?>rw/pengumuman/update/<?= $pengumuman[0]->id ?>" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+							<?php 
+							$pembayaran = $pembayaran[0];
+							// echo "<pre>";
+							// print_r($pembayaran);
+							// echo "</pre>";
+
+							?>
+							
+							<form action="<?= base_url()."warga/pembayaran/update/".$pembayaran->id_bayar ?>" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
+								<!-- <input type="hidden" name="id_warga" value="<?= $id_warga ?>">
+								<input type="hidden" name="bulan" value="<?= $bulan_ke ?>">
+								<input type="hidden" name="tahun" value="<?= date("Y") ?>"> -->
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Judul Pengumuman </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Pembayaran Bulan/Tahun ke </label>
 
 									<div class="col-sm-9">
-										<input name="judul" value="<?= $pengumuman[0]->judul ?>" type="text" id="form-field-1" class="col-xs-10 col-sm-5" />
+										<input value="<?= $bulan[$pembayaran->bulan] ?>" type="text" id="form-field-1" class="col-xs-3 col-sm-3" readonly />										
+										<input value="<?= $pembayaran->tahun ?>" type="text" id="form-field-1" class="col-xs-2 col-sm-2" readonly />
 									</div>
 								</div>
 
 								<div class="space-4"></div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal Posting </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal Pembayaran </label>
 
 									<div class="col-sm-9">
-										<input value="<?= $pengumuman[0]->tgl_posting ?>" name="tgl_posting" type="text" id="form-field-1" class="col-xs-10 col-sm-5" />
+										<input name="tgl_bayar" type="text" id="form-field-1" class="col-xs-10 col-sm-5" value="<?= $pembayaran->tgl_bayar ?>" readonly />
 									</div>
 								</div>
 
@@ -74,30 +86,27 @@
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Keterangan </label>
 
 									<div class="col-sm-9">										
-										<textarea name="keterangan" class="col-xs-10 col-sm-5"><?= $pengumuman[0]->keterangan ?></textarea>
+										<textarea name="keterangan" class="col-xs-10 col-sm-5"><?= $pembayaran->keterangan ?></textarea>
 									</div>
-								</div>
+								</div> 
+
 
 								<div class="space-4"></div>
-						
+
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Foto </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Foto Bukti </label>
 
 									<div class="col-sm-9">
-										<?php if ($pengumuman[0]->foto !== ""): ?>
-											<img width="200px" src="<?= base_url()."assets/gambar/".$pengumuman[0]->foto ?>"><br><br>
+										<?php if ($pembayaran->foto_bukti !== ""): ?>
+											<img width="200px" src="<?= base_url()."assets/gambar/".$pembayaran->foto_bukti ?>"><br><br>
 										<?php else: ?>
 											<img width="200px" src="<?= base_url()."assets/gambar/noimage.png" ?>"><br><br>
 										<?php endif; ?>
-										<input name="foto" type="file" id="form-field-1" /><br>
+										<input name="foto_bukti" type="file" id="form-field-1" /><br>
 										<b>Kosongkan jika tidak diubah. *)</b>
 									</div>
-
-									
-
 								</div>
-
-
+						
 								<div class="space-4"></div>
 
 								<div class="clearfix form-actions">

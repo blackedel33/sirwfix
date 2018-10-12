@@ -19,9 +19,30 @@ class Pembayaran extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
+	var $bulan;
+	var $nominal;
+	var $denda;
+
 	public function __construct(){
 		parent::__construct();
 
+		$this->bulan = [
+			1 => "Januari",
+			2 => "Februari",
+			3 => "Maret",
+			4 => "April",
+			5 => "Mei",
+			6 => "Juni",
+			7 => "Juli",
+			8 => "Agustus",
+			9 => "September",
+			10 => "Oktober",
+			11 => "November",
+			12 => "Desember",
+		];
+
+		$this->nominal = 50000;
+		$this->denda = 10000;
 
 		// $_SESSION["id"];
 
@@ -38,27 +59,31 @@ class Pembayaran extends CI_Controller {
 	}
 
 	public function index()
-	{
-		$bulan[0] = "Januari";
-		$bulan[1] = "Februari";
-		$bulan[2] = "Maret";
-		$bulan[3] = "April";
-		$bulan[4] = "Mei";
-		$bulan[5] = "Juni";
-		$bulan[6] = "Juli";
-		$bulan[7] = "Agustus";
-		$bulan[8] = "September";
-		$bulan[9] = "Oktober";
-		$bulan[10] = "November";
-		$bulan[11] = "Desember";
+	{				
+		$data["denda"] = $this->denda;
+		// $data["nominal"] = $this->nominal;
 
-		$data["bulan"] = $bulan;
-		$data["pembayaran"] = $this->pembayaran->get();
+		$data["bulan"] = $this->bulan;
+		$data["pembayaran"] = $this->pembayaran->get_by_warga_tahun( $_SESSION["id"], date("Y") );
 		$this->load->view('admin/warga/Pembayaran/index', $data);
 	}
 
 	public function tambah(){
-		$this->load->view('admin/warga/pembayaran/tambah');
+		$data["bulan"] = $this->bulan;
+
+		$data["id_warga"] = $this->uri->segment(4);
+		$data["bulan_ke"] = $this->uri->segment(5);
+
+		// perhitungan denda
+		$denda = ( date("m") - $data["bulan_ke"] ) * 10000;
+		$data["denda"] = $this->denda;
+
+		$data["nominal"] = $this->nominal;
+
+		$data["total_bayar"] = $data["denda"] + $data["nominal"];
+		// echo $data["id_warga"] . " - " . $data["bulan_ke"];
+
+		$this->load->view('admin/warga/pembayaran/tambah', $data);
 	}
 
 	public function simpan(){
@@ -80,17 +105,18 @@ class Pembayaran extends CI_Controller {
 	}
 
 	public function edit($id){
-		$data["pembayaran"] = $this->pembayaran->get_by_id($id);		
+		$data["pembayaran"] = $this->pembayaran->get_by_id($id);
+		$data["bulan"] = $this->bulan;
 		$this->load->view('admin/warga/pembayaran/edit', $data);
 	}
 
 	public function update($id){
 		
-		if ( $_FILES["foto"]["name"] !== "" ) {	// jika ada gambar
-			$ext = pathinfo($_FILES["foto"]['name'], PATHINFO_EXTENSION);
+		if ( $_FILES["foto_bukti"]["name"] !== "" ) {	// jika ada gambar
+			$ext = pathinfo($_FILES["foto_bukti"]['name'], PATHINFO_EXTENSION);
 			$filename = time().".".$ext;
-			$this->upload_image("foto", $filename);
-			$_POST["foto"] = $filename;		
+			$this->upload_image("foto_bukti", $filename);
+			$_POST["foto_bukti"] = $filename;		
 		}
 
 		$this->pembayaran->update($_POST, $id);

@@ -18,6 +18,15 @@ class pembayaran_model extends CI_Model {
 		// $query->free_result();
 	}
 
+	public function get_by_warga_tahun($id_warga, $tahun){
+		$this->db->order_by('id_bayar');
+		$this->db->where('id_warga', $id_warga);
+		$this->db->where('tahun', $tahun);
+		$query = $this->db->get('tabel_pembayaran');
+		return $query->result();
+		// $query->free_result();
+	}
+
 	public function save($data){
 		$this->db->insert('tabel_pembayaran', $data);
 	}

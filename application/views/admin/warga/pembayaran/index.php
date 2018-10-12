@@ -108,31 +108,35 @@
 						</h1>
 					</div><!-- /.page-header -->
 					
-						<a href="<?= base_url() ?>rw/pembayaran/tambah">
+						<!-- <a href="<?= base_url() ?>rw/pembayaran/tambah">
 							<button type="button" class="btn btn-sm btn-success"><i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah pembayaran
 							</button>
 						</a>
-						<br><br>
+						<br><br> -->
+						<bt><br>
 
 					<table id="simple-table" class="table  table-bordered table-hover">
 						<thead>
 							<tr>
 								<th class="detail-col">No.</th>
-								<th>Pembayaran Bulan ke</th>								
+								<th>Bulan ke</th>								
 								<th>Tgl. Bayar</th>
 								<th>Keterangan</th>
-								<th>Foto</th>
+								<th>Pembayaran</th>								
+								<th>Foto Bukti</th>
 								<th>Status</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
 
 						<tbody>						
-						<?php for ($i=0; $i < 12; $i++) { ?>
+						<?php 
+						$ijo = 1;
+						for ($i=0; $i < 12; $i++) { ?>
 						
 							<tr>
 								<td><?= $i+1 ?></td>
-								<td><?= $bulan[$i] ?></td>
+								<td><?= $bulan[$i+1] ?></td>
 								<td align="center">
 									<?php
 									if (isset($pembayaran[$i]->tgl_bayar)) {
@@ -148,39 +152,88 @@
 									?>
 								</td>
 								<td>
-									<!-- <center>
+									<small>
+									<?php
+
+									if (isset( $pembayaran[$i]->tgl_bayar ) ) {
+										$n = $pembayaran[$i]->nominal;
+										$d = $pembayaran[$i]->denda;
+										$t = $n + $d;										
+										?>
+										Nominal : <?= $n ?><br>
+										Denda : <?= $d ?><br>
+										Total Bayar : <?= $t ?><br>
+
+									<?php
+									} else{
+										$d = (date("m") - ($i+1)) * $denda;
+										if ($d < 0) {
+											$d = 0;
+										}
+									?>
+										Denda : <?= $d ?>
+									<?php
+									}
+																		
+									?>																	
+
+									</small>									
+								</td>
+								<td>									
+									<center>
 									<?php if (isset($pembayaran[$i]->foto_bukti)): ?>										
-										<img width="100px" src="<?= base_url()."assets/gambar/".$pembayaran[$i]->foto_bukti ?>"><br><br>
+										<img width="100px" height="50px" src="<?= base_url()."assets/gambar/".$pembayaran[$i]->foto_bukti ?>">
 									<?php else: ?>
-										<img width="100px" src="<?= base_url()."assets/gambar/noimage.png" ?>"><br><br>
+										-
+										<!-- <img width="100px" src="<?= base_url()."assets/gambar/noimage.png" ?>"><br><br> -->
 									<?php endif; ?>
-									</center> -->
+									</center>
 								</td>
 								<td>
 									<?php
 									if (isset($pembayaran[$i]->tgl_bayar)) {
-										echo "Lunas";
-									} else echo "Belum Lunas";
+										
+										if ( $pembayaran[$i]->status == "N" ) {
+											echo "Belum diverifikasi";
+										} else{
+											echo "Terverifikasi";
+										}
+
+									} else echo "Belum bayar";
 									?>
 								</td>
-								<td>
-									<a href="<?= base_url()."rw/pembayaran/hapus/" ?>" onClick="return confirm('Lakukan pembayaran?')">
-										<button class="btn btn-xs btn-success">
-											Bayar
-										</button>
-									</a>
+								<td>									
+									<?php if (isset($pembayaran[$i]->tgl_bayar)) { ?>
 
-									<a href="<?= base_url()."rw/pembayaran/edit/" ?>">
+									<a href="<?= base_url()."warga/pembayaran/edit/".$pembayaran[$i]->id_bayar ?>">
 										<button class="btn btn-xs btn-info">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
 										</button>
 									</a>										
 
-									<a href="<?= base_url()."rw/pembayaran/hapus/" ?>" onClick="return confirm('Hapus pembayaran ini?')">
+<!-- 									<a href="<?= base_url()."warga/pembayaran/hapus/" ?>" onClick="return confirm('Hapus pembayaran ini?')">
 										<button class="btn btn-xs btn-danger">
 											<i class="ace-icon fa fa-trash-o bigger-120"></i>
 										</button>
-									</a>
+									</a> -->
+									<?php } else {?>
+
+										<?php if ($ijo == 1) { ?>
+											<a href="<?= base_url()."warga/pembayaran/tambah/$_SESSION[id]/".($i+1) ?>" onClick="return confirm('Lakukan pembayaran?')">
+												<button class="btn btn-xs btn-success">
+													Bayar
+												</button>
+											</a>
+										<?php 
+										$ijo = 0;
+										} else {?>
+											<a onClick="return alert('Anda belum membayar bulan kemarin')">
+												<button class="btn btn-xs btn-success">
+													Bayar
+												</button>
+											</a>
+										<?php } ?>											
+									<?php } ?>
 								</td>
 							</tr>
 
@@ -189,9 +242,9 @@
 					</table>
 
 					<?php
-					echo "<pre>";
-					print_r($pembayaran);
-					echo "</pre>";
+					// echo "<pre>";
+					// print_r($pembayaran);
+					// echo "</pre>";
 					?>
 
 
