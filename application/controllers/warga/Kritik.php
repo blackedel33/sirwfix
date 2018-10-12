@@ -7,6 +7,12 @@ class Kritik extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+
+		if (!isset($_SESSION["group"]))
+		{
+			redirect('/auth/login');
+		}
+		
 		$this->load->model('Kritik_model', 'kritik');
 	}
 

@@ -22,6 +22,11 @@ class Pengumuman extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 
+		if (!isset($_SESSION["group"]))
+		{
+			redirect('/auth/login');
+		}
+
 
 		// cek jika bukan rw, maka tidak bisa akses
 		// $user = $this->ion_auth->user()->row();

@@ -26,6 +26,11 @@ class Pembayaran extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 
+		if (!isset($_SESSION["group"]))
+		{
+			redirect('/auth/login');
+		}
+
 		$this->bulan = [
 			1 => "Januari",
 			2 => "Februari",
