@@ -1,11 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class pembayaran_model extends CI_Model {
+class Pembayaran_model extends CI_Model {
 
 	public function get(){
 		$this->db->order_by('id_bayar');
 		$query = $this->db->get('tabel_pembayaran');
+		return $query->result();
+		// $query->free_result();
+	}
+
+	public function get_join_warga_tahun($tahun){
+		$query = $this->db->query("SELECT p.id_bayar, p.tgl_bayar, p.nominal, p.denda, p.keterangan, p.foto_bukti, p.status, w.nama FROM tabel_pembayaran AS p JOIN warga AS w ON p.id_warga = w.id AND p.tahun='".$tahun."' ORDER BY p.id_bayar DESC");
 		return $query->result();
 		// $query->free_result();
 	}
@@ -34,6 +40,11 @@ class pembayaran_model extends CI_Model {
 	public function update($data, $id){
 		$this->db->where('id_bayar', $id);
 		$this->db->update('tabel_pembayaran', $data);
+	}
+
+	public function ubah_status($id, $st){
+		$this->db->where('id_bayar', $id);
+		$this->db->update('tabel_pembayaran', ["status"=>$st]);
 	}
 
 	public function delete($id){

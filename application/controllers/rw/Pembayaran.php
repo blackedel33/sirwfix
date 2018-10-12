@@ -32,12 +32,34 @@ class Pembayaran extends CI_Controller {
 		}
 
 		$this->load->model('pembayaran_model', 'pembayaran');
+		$this->load->model('Warga_model', 'warga');
 		$this->load->library('upload');
 	}
 
-	public function index()
+	public function index($th = null)
 	{
-		$data["pembayaran"] = $this->pembayaran->get();
+		if (isset($th)) {
+			$tahun = $th;
+		} else{
+			$tahun = date("Y");
+		}		
+
+		$data["warga"] = $this->warga->get();
+
+		// echo "<pre>";
+		// print_r( $data["warga"] );
+		// echo "</pre>";
+
+		foreach ($data["warga"] as $w) {
+			$p[$w->id] = $this->pembayaran->get_by_warga_tahun( $w->id, $tahun );
+		}
+
+		// echo "<pre>";
+		// print_r($p);
+		// echo "</pre>";
+
+		$data["pembayaran"] = $p;
+		
 		$this->load->view('admin/rw/Pembayaran/index', $data);
 	}
 

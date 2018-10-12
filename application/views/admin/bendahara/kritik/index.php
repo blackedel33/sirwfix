@@ -20,8 +20,9 @@
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
 							<a href="#">Home</a>
-						</li>						
-						<li class="active">pembayaran</li>
+						</li>
+						<li>Produk</li>
+						<li class="active">Data Kritik</li>
 					</ul><!-- /.breadcrumb -->
 
 					<div class="nav-search" id="nav-search">
@@ -104,64 +105,99 @@
 
 					<div class="page-header">
 						<h1>
-							pembayaran
+							Kritik Saran
 						</h1>
 					</div><!-- /.page-header -->
 					
-<!-- 						<a href="<?= base_url() ?>rw/pembayaran/tambah">
-							<button type="button" class="btn btn-sm btn-success"><i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah pembayaran
+						<a href="<?= base_url() ?>warga/kritik/tambah">
+							<button type="button" class="btn btn-sm btn-success"><i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah Kritik
 							</button>
-						</a> -->
+						</a>
 						<br><br>
-
-						<select id="tahun">
-							<?php
-							$m = date("Y") + 1;
-							for ($i=2012; $i <= $m; $i++) { ?>
-								<option value="<?= base_url() ?>rw/pembayaran/index/<?= $i ?>"><?= $i ?></option>
-							<?php
-							}
-							?>
-						</select>
 
 					<table id="simple-table" class="table  table-bordered table-hover">
 						<thead>
 							<tr>
 								<th class="detail-col">No.</th>
-								<th>Nama</th>																
-								<th>1</th>
-								<th>2</th>
-								<th>3</th>
-								<th>4</th>
-								<th>5</th>
-								<th>6</th>
-								<th>7</th>
-								<th>8</th>
-								<th>9</th>
-								<th>10</th>
-								<th>11</th>
-								<th>12</th>
+								<th>Judul</th>
+								<th>Tgl. </th>								
+								<th>Isi</th>
+								<th>Aksi</th>
 							</tr>
 						</thead>
 
-						<tbody>												
-							<?php 
-							$i = 1;
-							foreach ($warga as $w): ?>
-								<tr>
-									<td><?= $i ?></td>
-									<td><?= $w->nama ?></td>
-									<?php
-									for ($i=0; $i < 12; $i++) { 
-										$status = isset($pembayaran[$w->id][$i]->status) ? "L" : "B";
-									?>
-										<td><?= $status ?></td>
-									<?php
-									} ?>
-								</tr>
-							<?php 
-							$i++;
-							endforeach; ?>
+						<tbody>						
+						<?php  
+						$i = 1;
+						foreach ($kritik as $k): ?>
+							<tr>
+								<td><?= $i ?></td>
+								<td width="300px"><?= $k->judul ?></td>
+								<td width="150px"><?= $k->tgl_komentar ?></td>
+								<td width="300px"><?= $k->isi ?></td>
+								
+								<td width="150px">
+									<div class="hidden-sm hidden-xs btn-group">
+										<!-- <button class="btn btn-xs btn-success">
+											<i class="ace-icon fa fa-check bigger-120"></i>
+										</button> -->
+<!-- 
+										<a href="<?= base_url()."admin/kritik/edit/".$k->id ?>">
+											<button class="btn btn-xs btn-info">
+												<i class="ace-icon fa fa-pencil bigger-120"></i>
+											</button>
+										</a>	 -->									
+
+										<a href="<?= base_url()."warga/kritik/hapus/".$k->id ?>" onClick="return confirm('Hapus pengumuman ini?')">
+											<button class="btn btn-xs btn-danger">
+												<i class="ace-icon fa fa-trash-o bigger-120"></i>
+											</button>
+										</a>
+
+<!-- 										<button class="btn btn-xs btn-warning">
+											<i class="ace-icon fa fa-flag bigger-120"></i>
+										</button> -->
+									</div>
+
+									<!-- <div class="hidden-md hidden-lg">
+										<div class="inline pos-rel">
+											<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+												<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+											</button>
+
+											<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+												<li>
+													<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+														<span class="blue">
+															<i class="ace-icon fa fa-search-plus bigger-120"></i>
+														</span>
+													</a>
+												</li>
+
+												<li>
+													<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+														<span class="green">
+															<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+														</span>
+													</a>
+												</li>
+
+												<li>
+													<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+														<span class="red">
+															<i class="ace-icon fa fa-trash-o bigger-120"></i>
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div> -->
+								</td>
+							</tr>
+						<?php 
+						$i++;
+						endforeach ?>
+							
 						</tbody>
 					</table>
 
@@ -174,14 +210,5 @@
 </div><!-- /.main-content -->
 
 <?php $this->load->view('admin/footer') ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-	    $("#tahun").change(function()
-		{
-		    document.location.href = $(this).val();
-		});
-	});
-</script>
 </body>
 </html>

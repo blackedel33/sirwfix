@@ -104,66 +104,58 @@
 
 					<div class="page-header">
 						<h1>
-							pembayaran
+							Pembayaran per bulan tahun <?= date("Y") ?>
 						</h1>
 					</div><!-- /.page-header -->
 					
-<!-- 						<a href="<?= base_url() ?>rw/pembayaran/tambah">
+						<!-- <a href="<?= base_url() ?>rw/pembayaran/tambah">
 							<button type="button" class="btn btn-sm btn-success"><i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah pembayaran
 							</button>
-						</a> -->
-						<br><br>
-
-						<select id="tahun">
-							<?php
-							$m = date("Y") + 1;
-							for ($i=2012; $i <= $m; $i++) { ?>
-								<option value="<?= base_url() ?>rw/pembayaran/index/<?= $i ?>"><?= $i ?></option>
-							<?php
-							}
-							?>
-						</select>
+						</a>
+						<br><br> -->
+						<bt><br>
 
 					<table id="simple-table" class="table  table-bordered table-hover">
 						<thead>
 							<tr>
 								<th class="detail-col">No.</th>
-								<th>Nama</th>																
-								<th>1</th>
-								<th>2</th>
-								<th>3</th>
-								<th>4</th>
-								<th>5</th>
-								<th>6</th>
-								<th>7</th>
-								<th>8</th>
-								<th>9</th>
-								<th>10</th>
-								<th>11</th>
-								<th>12</th>
+								<th>Nama Warga</th>
+								<th>Tgl. Bayar</th>								
+								<th>Pembayaran</th>								
+								<th>Foto Bukti</th>
+								<th>Keterangan</th>
+								<th>Status</th>								
 							</tr>
 						</thead>
 
-						<tbody>												
-							<?php 
-							$i = 1;
-							foreach ($warga as $w): ?>
-								<tr>
-									<td><?= $i ?></td>
-									<td><?= $w->nama ?></td>
-									<?php
-									for ($i=0; $i < 12; $i++) { 
-										$status = isset($pembayaran[$w->id][$i]->status) ? "L" : "B";
-									?>
-										<td><?= $status ?></td>
-									<?php
-									} ?>
-								</tr>
-							<?php 
-							$i++;
-							endforeach; ?>
+						<tbody>						
+						<?php 
+						$i = 1;
+						foreach ($pembayaran as $p): ?>
+							<tr>
+								<td><?= $i ?></td>
+								<td><?= $p->nama ?></td>
+								<td><?= $p->tgl_bayar ?></td>								
+								<td>
+								Nominal : <?= $p->nominal ?><br>
+								Denda : <?= $p->denda ?><br>
+								Total : <?= $p->nominal+$p->denda ?><br>
+								</td>
+								<td><img width="100" src="<?= base_url() ?>assets/gambar/<?= $p->foto_bukti ?>"></td>
+								<td><?= $p->keterangan ?></td>
+								<td><?= form_dropdown("status", ["Y"=>"Verifikasi","N"=>"Blm verifikasi"], $p->status, ["class"=>"status", "data-id"=>$p->id_bayar]) ?></td>
+							</tr>
+						<?php
+						$i++;
+						endforeach; ?>
 						</tbody>
 					</table>
+
+					<?php
+					// echo "<pre>";
+					// print_r($pembayaran);
+					// echo "</pre>";
+					?>
 
 
 					<!-- PAGE CONTENT ENDS -->
@@ -177,10 +169,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-	    $("#tahun").change(function()
-		{
-		    document.location.href = $(this).val();
-		});
+	    $(".status").change(function(){
+	        var id = $(this).data("id");
+	        var val = $(this).val();
+
+	        $.ajax({
+			  url: "<?= base_url()."bendahara/pembayaran/ubah_status" ?>",
+			  type: "POST",
+			  data: {id_bayar : id, status : val},			  
+			  success: function(html){
+			  	alert("Status berhasil diubah");
+			  }
+			});
+
+
+	    });
 	});
 </script>
 </body>
