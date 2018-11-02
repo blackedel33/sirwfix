@@ -33,6 +33,10 @@ class Pembayaran_model extends CI_Model {
 		// $query->free_result();
 	}
 
+	// public function get_per_warga(){
+
+	// }
+
 	public function save($data){
 		$this->db->insert('tabel_pembayaran', $data);
 	}

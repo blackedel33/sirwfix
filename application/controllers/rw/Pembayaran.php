@@ -34,6 +34,24 @@ class Pembayaran extends CI_Controller {
 		$this->load->model('pembayaran_model', 'pembayaran');
 		$this->load->model('Warga_model', 'warga');
 		$this->load->library('upload');
+
+		$this->bulan = [
+			1 => "Januari",
+			2 => "Februari",
+			3 => "Maret",
+			4 => "April",
+			5 => "Mei",
+			6 => "Juni",
+			7 => "Juli",
+			8 => "Agustus",
+			9 => "September",
+			10 => "Oktober",
+			11 => "November",
+			12 => "Desember",
+		];
+
+		$this->nominal = 50000;
+		$this->denda = 10000;
 	}
 
 	public function index($th = null)
@@ -59,13 +77,26 @@ class Pembayaran extends CI_Controller {
 		// echo "</pre>";
 
 		$data["pembayaran"] = $p;
+		$data["tahun"] = $tahun;
 		
 		$this->load->view('admin/rw/Pembayaran/index', $data);
 	}
 
-	public function tambah(){
-		$this->load->view('admin/rw/pembayaran/tambah');
+	public function perwarga(){
+		
+		$data["id_warga"] = $this->uri->segment("4");		
+		$data['warga_by_id'] = $this->warga->get_by_id($data["id_warga"]);
+		$data["pembayaran"] = $this->pembayaran->get_by_warga_tahun( $data["id_warga"], date("Y") );
+
+		// echo "<pre>";
+		// print_r($tes);
+		$data["bulan"] = $this->bulan;
+		$data['warga'] = $this->warga->get();
+		$this->load->view('admin/rw/pembayaran/warga', $data);
 	}
+
+	// public function tambah(){
+	// }
 
 	public function simpan(){
 		// jika ada gambar yang diupload

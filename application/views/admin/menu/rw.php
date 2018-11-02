@@ -38,7 +38,7 @@
 
           <ul class="submenu">
             <li class="">
-              <a href="top-menu.html">
+              <a href="<?= base_url("rw/pembayaran/perwarga") ?>">
                 <i class="menu-icon fa fa-caret-right"></i>
                 Per warga
               </a>
@@ -47,7 +47,7 @@
             </li>
 
             <li class="">
-              <a href="two-menu-1.html">
+            <a href="<?= base_url("rw/pembayaran/index") ?>">
                 <i class="menu-icon fa fa-caret-right"></i>
                 Per bulan
               </a>

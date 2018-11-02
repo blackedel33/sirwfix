@@ -80,8 +80,8 @@ class Pembayaran extends CI_Controller {
 		$data["bulan_ke"] = $this->uri->segment(5);
 
 		// perhitungan denda
-		$denda = ( date("m") - $data["bulan_ke"] ) * 10000;
-		$data["denda"] = $this->denda;
+		$denda = ( date("m") - $data["bulan_ke"] ) * $this->denda;
+		$data["denda"] = $denda;
 
 		$data["nominal"] = $this->nominal;
 

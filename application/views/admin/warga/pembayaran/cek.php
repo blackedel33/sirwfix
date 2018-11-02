@@ -104,79 +104,149 @@
 
 					<div class="page-header">
 						<h1>
-							Pembayaran
+							Pembayaran per bulan tahun <?= date("Y") ?>
 						</h1>
 					</div><!-- /.page-header -->
 					
-<!-- 						<a href="<?= base_url() ?>rw/pembayaran/tambah">
+						<!-- <a href="<?= base_url() ?>rw/pembayaran/tambah">
 							<button type="button" class="btn btn-sm btn-success"><i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah pembayaran
 							</button>
-						</a> -->
-						<br><br>
+						</a>
+						<br><br> -->
+						<bt><br>
 
-						Pilih tahun:
-						<select id="tahun">
-							<?php
-							$m = date("Y") + 1;
-							for ($i=2012; $i <= $m; $i++) {
-								if($i == $tahun)
-									$selected = "selected";
-								else
-									$selected = "";
-								?>
-								<option <?= $selected ?> value="<?= base_url() ?>rw/pembayaran/index/<?= $i ?>"><?= $i ?></option>
-							<?php
-							}
-							?>
-						</select>
+					<table id="simple-table" class="table  table-bordered table-hover">
+						<thead>
+							<tr>
+								<th class="detail-col">No.</th>
+								<th>Bulan ke</th>								
+								<th>Tgl. Bayar</th>
+								<th>Keterangan</th>
+								<th>Pembayaran</th>								
+								<th>Foto Bukti</th>
+								<th>Status</th>
+								<th>Aksi</th>
+							</tr>
+						</thead>
 
-						<br><br>
+						<tbody>						
+						<?php 
+						$ijo = 1;
+						for ($i=0; $i < 12; $i++) { ?>
+						
+							<tr>
+								<td><?= $i+1 ?></td>
+								<td><?= $bulan[$i+1] ?></td>
+								<td align="center">
+									<?php
+									if (isset($pembayaran[$i]->tgl_bayar)) {
+										echo $pembayaran[$i]->tgl_bayar;
+									} else echo "-";
+									?>
+								</td>
+								<td>
+									<?php
+									if (isset($pembayaran[$i]->keterangan)) {
+										echo $pembayaran[$i]->keterangan;
+									} else echo "-";
+									?>
+								</td>
+								<td>
+									<small>
+									<?php
 
-					<div id="result">
-						<span style="font-size:20px;">Tahun : <?= $tahun ?></span><br><br>
-						<table id="simple-table" class="table  table-bordered table-hover"  border=1 width=100% cellpadding=5px>
-							<thead>
-								<tr>
-									<th class="detail-col">No.</th>
-									<th>Nama</th>																
-									<th>1</th>
-									<th>2</th>
-									<th>3</th>
-									<th>4</th>
-									<th>5</th>
-									<th>6</th>
-									<th>7</th>
-									<th>8</th>
-									<th>9</th>
-									<th>10</th>
-									<th>11</th>
-									<th>12</th>
-								</tr>
-							</thead>
-
-							<tbody>												
-								<?php 
-								$i = 1;
-								foreach ($warga as $w): ?>
-									<tr>
-										<td><?= $i ?></td>
-										<td><?= $w->nama ?></td>
-										<?php
-										for ($i=0; $i < 12; $i++) { 
-											$status = isset($pembayaran[$w->id][$i]->status) ? "L" : "B";
+									if (isset( $pembayaran[$i]->tgl_bayar ) ) {
+										$n = $pembayaran[$i]->nominal;
+										$d = $pembayaran[$i]->denda;
+										$t = $n + $d;										
 										?>
-											<td><?= $status ?></td>
-										<?php
-										} ?>
-									</tr>
-								<?php 
-								$i++;
-								endforeach; ?>
-							</tbody>
-						</table>
-					</div>
-					
-					<button onClick="printElem('result')">Print</button>
+										Nominal : <?= $n ?><br>
+										Denda : <?= $d ?><br>
+										Total Bayar : <?= $t ?><br>
+
+									<?php
+									} else{
+										$d = (date("m") - ($i+1)) * $denda;
+										if ($d < 0) {
+											$d = 0;
+										}
+									?>
+										Denda : <?= $d ?>
+									<?php
+									}
+																		
+									?>																	
+
+									</small>									
+								</td>
+								<td>									
+									<center>
+									<?php if (isset($pembayaran[$i]->foto_bukti)): ?>										
+										<img width="100px" height="50px" src="<?= base_url()."assets/gambar/".$pembayaran[$i]->foto_bukti ?>">
+									<?php else: ?>
+										-
+										<!-- <img width="100px" src="<?= base_url()."assets/gambar/noimage.png" ?>"><br><br> -->
+									<?php endif; ?>
+									</center>
+								</td>
+								<td>
+									<?php
+									if (isset($pembayaran[$i]->tgl_bayar)) {
+										
+										if ( $pembayaran[$i]->status == "N" ) {
+											echo "Belum diverifikasi";
+										} else{
+											echo "Terverifikasi";
+										}
+
+									} else echo "Belum bayar";
+									?>
+								</td>
+								<td>									
+									<?php if (isset($pembayaran[$i]->tgl_bayar)) { ?>
+
+									<a href="<?= base_url()."warga/pembayaran/edit/".$pembayaran[$i]->id_bayar ?>">
+										<button class="btn btn-xs btn-info">
+											<i class="ace-icon fa fa-pencil bigger-120"></i>
+										</button>
+									</a>										
+
+<!-- 									<a href="<?= base_url()."warga/pembayaran/hapus/" ?>" onClick="return confirm('Hapus pembayaran ini?')">
+										<button class="btn btn-xs btn-danger">
+											<i class="ace-icon fa fa-trash-o bigger-120"></i>
+										</button>
+									</a> -->
+									<?php } else {?>
+
+										<?php if ($ijo == 1) { ?>
+											<a href="<?= base_url()."warga/pembayaran/tambah/$_SESSION[id]/".($i+1) ?>" onClick="return confirm('Lakukan pembayaran?')">
+												<button class="btn btn-xs btn-success">
+													Bayar
+												</button>
+											</a>
+										<?php 
+										$ijo = 0;
+										} else {?>
+											<a onClick="return alert('Anda belum membayar bulan kemarin')">
+												<button class="btn btn-xs btn-success">
+													Bayar
+												</button>
+											</a>
+										<?php } ?>											
+									<?php } ?>
+								</td>
+							</tr>
+
+						<?php } ?>
+						</tbody>
+					</table>
+
+					<?php
+					// echo "<pre>";
+					// print_r($pembayaran);
+					// echo "</pre>";
+					?>
+
 
 					<!-- PAGE CONTENT ENDS -->
 				</div><!-- /.col -->
@@ -186,14 +256,5 @@
 </div><!-- /.main-content -->
 
 <?php $this->load->view('admin/footer') ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-	    $("#tahun").change(function()
-		{
-		    document.location.href = $(this).val();
-		});
-	});
-</script>
 </body>
 </html>

@@ -36,10 +36,8 @@
 
 <!-- basic scripts -->
 
-<!--[if !IE]> -->
 <script src="<?php echo base_url('assets/template/back') ?>/js/jquery-2.1.4.min.js"></script>
 
-<!-- <![endif]-->
 
 <!--[if IE]>
 <script src="<?php echo base_url('assets/template/back') ?>/js/jquery-1.11.3.min.js"></script>
@@ -66,9 +64,27 @@ if('ontouchstart' in document.documentElement) document.write("<script src='<?ph
 <script src="<?php echo base_url('assets/template/back') ?>/js/ace-elements.min.js"></script>
 <script src="<?php echo base_url('assets/template/back') ?>/js/ace.min.js"></script>
 
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
+  function printElem(divId) {
+		var content = document.getElementById(divId).innerHTML;
+		var mywindow = window.open('', 'Print', 'height=600,width=800');
+
+		mywindow.document.write('<html><head><title>Print</title>');
+		mywindow.document.write('</head><body >');
+		mywindow.document.write(content);
+		mywindow.document.write('</body></html>');
+
+		mywindow.document.close();
+		mywindow.focus()
+		mywindow.print();
+		mywindow.close();
+		return true;
+	}
 jQuery(function($) {
+
+  
   $('.easy-pie-chart.percentage').each(function(){
     var $box = $(this).closest('.infobox');
     var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');

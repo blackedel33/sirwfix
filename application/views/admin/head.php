@@ -18,6 +18,7 @@
   <!-- ace styles -->
   <link rel="stylesheet" href="<?php echo base_url('assets/template/back') ?>/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
+
   <!--[if lte IE 9]>
     <link rel="stylesheet" href="<?php echo base_url('assets/template/back') ?>/css/ace-part2.min.css" class="ace-main-stylesheet" />
   <![endif]-->
@@ -29,6 +30,8 @@
   <![endif]-->
 
   <!-- inline styles related to this page -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  
 
   <!-- ace settings handler -->
   <script src="<?php echo base_url('assets/template/back') ?>/js/ace-extra.min.js"></script>

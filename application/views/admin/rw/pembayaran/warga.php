@@ -104,76 +104,104 @@
 
 					<div class="page-header">
 						<h1>
-							Pembayaran
+							Pembayaran per bulan tahun <?= date("Y") ?>
 						</h1>
 					</div><!-- /.page-header -->
 					
-<!-- 						<a href="<?= base_url() ?>rw/pembayaran/tambah">
+						<!-- <a href="<?= base_url() ?>rw/pembayaran/tambah">
 							<button type="button" class="btn btn-sm btn-success"><i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah pembayaran
 							</button>
-						</a> -->
-						<br><br>
+						</a>
+						<br><br> -->
+						<br>
 
-						Pilih tahun:
-						<select id="tahun">
-							<?php
-							$m = date("Y") + 1;
-							for ($i=2012; $i <= $m; $i++) {
-								if($i == $tahun)
-									$selected = "selected";
-								else
-									$selected = "";
-								?>
-								<option <?= $selected ?> value="<?= base_url() ?>rw/pembayaran/index/<?= $i ?>"><?= $i ?></option>
-							<?php
-							}
-							?>
-						</select>
+					
+					<select name="warga" id="warga">
+					<?php
+					foreach ($warga as $key => $value) {
+						if ($value->id == $id_warga)
+							$selected = "selected";
+						else
+						$selected = "";
+						?>
+						<!-- echo $value->nama; -->
+						<option <?= $selected ?> value="<?= $value->id ?>"><?= $value->nama ?></option>
+					<?php
+					}					
+					?>
+					</select>
 
-						<br><br>
+					<br><br>
+					<?php
 
+// echo "<pre>";
+// print_r($warga_by_id);
+// echo "</pre>";
+
+					if($id_warga != ""){?>
 					<div id="result">
-						<span style="font-size:20px;">Tahun : <?= $tahun ?></span><br><br>
-						<table id="simple-table" class="table  table-bordered table-hover"  border=1 width=100% cellpadding=5px>
+						<span style="font-size:20px;">Nama : <?= $warga_by_id[0]->nama ?><br></span>
+						<span style="font-size:20px;">NIK : <?= $warga_by_id[0]->nik ?><br></span>
+						<span style="font-size:20px;">Tahun : <?= date("Y") ?></span>
+						<br><br>
+						<table id="simple-table" class="table  table-bordered table-hover" border=1 width=100% cellpadding=5px>
 							<thead>
 								<tr>
 									<th class="detail-col">No.</th>
-									<th>Nama</th>																
-									<th>1</th>
-									<th>2</th>
-									<th>3</th>
-									<th>4</th>
-									<th>5</th>
-									<th>6</th>
-									<th>7</th>
-									<th>8</th>
-									<th>9</th>
-									<th>10</th>
-									<th>11</th>
-									<th>12</th>
+									<th>Bulan ke</th>								
+									<th>Nominal</th>
+									<th>Denda</th>
+									<th>Total Bayar</th>
+									<th>Tgl. Bayar</th>
+									<th>Status</th>								
 								</tr>
 							</thead>
 
-							<tbody>												
-								<?php 
-								$i = 1;
-								foreach ($warga as $w): ?>
-									<tr>
-										<td><?= $i ?></td>
-										<td><?= $w->nama ?></td>
+							<tbody>						
+							<?php 
+							// $ijo = 1;
+							for ($i=0; $i < 12; $i++) { ?>
+							
+								<tr>
+									<td><?= $i+1 ?></td>
+									<td><?= $bulan[$i+1] ?></td>
+									<td>
+									<?= isset($pembayaran[$i]->nominal) ? $pembayaran[$i]->nominal : "-";?>
+									</td>
+									<td>
+									<?= isset($pembayaran[$i]->denda) ? $pembayaran[$i]->denda : "-";?>
+									</td>
+									<td>
+									<?= isset($pembayaran[$i]->nominal) ? $pembayaran[$i]->nominal + $pembayaran[$i]->denda : "-";?>
+									</td>
+									<td align="center">
 										<?php
-										for ($i=0; $i < 12; $i++) { 
-											$status = isset($pembayaran[$w->id][$i]->status) ? "L" : "B";
+										if (isset($pembayaran[$i]->tgl_bayar)) {
+											echo $pembayaran[$i]->tgl_bayar;
+										} else echo "-";
 										?>
-											<td><?= $status ?></td>
+									</td>
+									<td>
 										<?php
-										} ?>
-									</tr>
-								<?php 
-								$i++;
-								endforeach; ?>
+										if (isset($pembayaran[$i]->tgl_bayar)) {
+											
+											if ( $pembayaran[$i]->status == "N" ) {
+												echo "Belum diverifikasi";
+											} else{
+												echo "Lunas";
+											}
+
+										} else echo "Belum bayar";
+										?>
+									</td>								
+								</tr>
+
+							<?php } ?>
 							</tbody>
 						</table>
+						<?php
+						}
+						?>
 					</div>
 					
 					<button onClick="printElem('result')">Print</button>
@@ -188,8 +216,9 @@
 <?php $this->load->view('admin/footer') ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
+
 	$(document).ready(function(){
-	    $("#tahun").change(function()
+	    $("#warga").change(function()
 		{
 		    document.location.href = $(this).val();
 		});
