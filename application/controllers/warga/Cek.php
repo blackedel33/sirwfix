@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pengumuman extends CI_Controller {
+class Cek extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -23,51 +23,77 @@ class Pengumuman extends CI_Controller {
 		parent::__construct();
 
 
+
+		if (!isset($_SESSION["group"]))
+		{
+			redirect('/auth/login');
+		}
+
 		// cek jika bukan rw, maka tidak bisa akses
-		$user = $this->ion_auth->user()->row();
-		$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
+		// $user = $this->ion_auth->user()->row();
+		// $user_groups = $this->ion_auth->get_users_groups($user->id)->result();
+		// // print_r($user_groups[0]->name);
+		// if ( $user_groups[0]->name != "rw" ) {
+		// 	redirect('/');
+		// }
 
-//		 print_r($user_groups[0]->name);
-		//if ( $user_groups[0]->name != "rw" ) {
-		//	redirect('/');
-		//}
-
-		$this->load->model('Pengumuman_model', 'pengumuman');
+		$this->load->model('pembayaran_model', 'pembayaran');
+		$this->load->model('Warga_model', 'warga');
 		$this->load->library('upload');
 	}
 
-	public function index()
+	public function index($th = null)
 	{
-		$data["pengumuman"] = $this->pengumuman->get();
-		$this->load->view('admin/rw/pengumuman/index', $data);
+		if (isset($th)) {
+			$tahun = $th;
+		} else{
+			$tahun = date("Y");
+		}		
 
+		$data["warga"] = $this->warga->get();
+
+		// echo "<pre>";
+		// print_r( $data["warga"] );
+		// echo "</pre>";
+
+		foreach ($data["warga"] as $w) {
+			$p[$w->id] = $this->pembayaran->get_by_warga_tahun( $w->id, $tahun );
+		}
+
+		// echo "<pre>";
+		// print_r($p);
+		// echo "</pre>";
+
+		$data["pembayaran"] = $p;
+		
+		$this->load->view('admin/rw/Pembayaran/index', $data);
 	}
 
 	public function tambah(){
-		$this->load->view('admin/rw/pengumuman/tambah');
+		$this->load->view('admin/rw/pembayaran/tambah');
 	}
 
 	public function simpan(){
 		// jika ada gambar yang diupload
-		if ($_FILES["foto"]['name'] !== "") {
-			$ext = pathinfo($_FILES["foto"]['name'], PATHINFO_EXTENSION);
+		if ($_FILES["foto_bukti"]['name'] !== "") {
+			$ext = pathinfo($_FILES["foto_bukti"]['name'], PATHINFO_EXTENSION);
 			$filename = time().".".$ext;
-			$this->upload_image("foto", $filename);
-			$_POST["foto"] = $filename;	
+			$this->upload_image("foto_bukti", $filename);
+			$_POST["foto_bukti"] = $filename;	
 		}
 
 		// simpan data ke database
-		$this->pengumuman->save($_POST);
+		$this->pembayaran->save($_POST);
 
 		echo "<script>
-		alert('Data pengumuman berhasil ditambahkan!');
-		window.location.href='".base_url('rw/pengumuman')."';
+		alert('Data pembayaran berhasil ditambahkan!');
+		window.location.href='".base_url('rw/pembayaran')."';
 		</script>";
 	}
 
 	public function edit($id){
-		$data["pengumuman"] = $this->pengumuman->get_by_id($id);		
-		$this->load->view('admin/rw/pengumuman/edit', $data);
+		$data["pembayaran"] = $this->pembayaran->get_by_id($id);		
+		$this->load->view('admin/rw/pembayaran/edit', $data);
 	}
 
 	public function update($id){
@@ -79,20 +105,20 @@ class Pengumuman extends CI_Controller {
 			$_POST["foto"] = $filename;		
 		}
 
-		$this->pengumuman->update($_POST, $id);
+		$this->pembayaran->update($_POST, $id);
 
 		echo "<script>
-			alert('Data pengumuman berhasil diubah!');
-			window.location.href='".base_url('rw/pengumuman')."';
+			alert('Data pembayaran berhasil diubah!');
+			window.location.href='".base_url('rw/pembayaran')."';
 			</script>";
 	}
 
 	public function hapus($id){
-		$this->pengumuman->delete($id);
+		$this->pembayaran->delete($id);
 
 		echo "<script>
-			alert('Data pengumuman berhasil dihapus!');
-			window.location.href='".base_url('rw/pengumuman')."';
+			alert('Data pembayaran berhasil dihapus!');
+			window.location.href='".base_url('rw/pembayaran')."';
 			</script>";
 	}
 
