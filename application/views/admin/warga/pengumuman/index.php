@@ -133,7 +133,7 @@
 							<tr>
 								<td><?= $i ?></td>
 								<td width="300px"><?= $p->judul ?></td>
-								<td width="150px"><?= $p->tgl_posting ?></td>
+								<td width="150px"><?= $this->Global_model->tgl_indo($p->tgl_posting) ?></td>
 								<td width="300px"><?= $p->keterangan ?></td>
 								<td>
 									<center>

@@ -140,7 +140,7 @@
 								<td align="center">
 									<?php
 									if (isset($pembayaran[$i]->tgl_bayar)) {
-										echo $pembayaran[$i]->tgl_bayar;
+										echo $this->Global_model->tgl_indo($pembayaran[$i]->tgl_bayar);
 									} else echo "-";
 									?>
 								</td>
@@ -160,9 +160,9 @@
 										$d = $pembayaran[$i]->denda;
 										$t = $n + $d;										
 										?>
-										Nominal : <?= $n ?><br>
-										Denda : <?= $d ?><br>
-										Total Bayar : <?= $t ?><br>
+										Nominal : <?= $this->Global_model->rupiah($n) ?><br>
+										Denda : <?= $this->Global_model->rupiah($d) ?><br>
+										Total Bayar : <?= $this->Global_model->rupiah($t) ?><br>
 
 									<?php
 									} else{
@@ -171,7 +171,7 @@
 											$d = 0;
 										}
 									?>
-										Denda : <?= $d ?>
+										Denda : <?= $this->Global_model->rupiah($d) ?>
 									<?php
 									}
 																		

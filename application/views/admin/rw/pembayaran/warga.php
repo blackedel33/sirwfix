@@ -115,8 +115,9 @@
 						<br><br> -->
 						<br>
 
-					
+					Pilih warga:
 					<select name="warga" id="warga">
+						<option selected value="">--Pilih warga--</option>
 					<?php
 					foreach ($warga as $key => $value) {
 						if ($value->id == $id_warga)
@@ -166,18 +167,18 @@
 									<td><?= $i+1 ?></td>
 									<td><?= $bulan[$i+1] ?></td>
 									<td>
-									<?= isset($pembayaran[$i]->nominal) ? $pembayaran[$i]->nominal : "-";?>
+									<?= isset($pembayaran[$i]->nominal) ? $this->Global_model->rupiah($pembayaran[$i]->nominal) : "-";?>
 									</td>
 									<td>
-									<?= isset($pembayaran[$i]->denda) ? $pembayaran[$i]->denda : "-";?>
+									<?= isset($pembayaran[$i]->denda) ? $this->Global_model->rupiah($pembayaran[$i]->denda) : "-";?>
 									</td>
 									<td>
-									<?= isset($pembayaran[$i]->nominal) ? $pembayaran[$i]->nominal + $pembayaran[$i]->denda : "-";?>
+									<?= isset($pembayaran[$i]->nominal) ? $this->Global_model->rupiah($pembayaran[$i]->nominal + $pembayaran[$i]->denda) : "-";?>
 									</td>
 									<td align="center">
 										<?php
 										if (isset($pembayaran[$i]->tgl_bayar)) {
-											echo $pembayaran[$i]->tgl_bayar;
+											echo $this->Global_model->tgl_indo($pembayaran[$i]->tgl_bayar);
 										} else echo "-";
 										?>
 									</td>
@@ -199,12 +200,12 @@
 							<?php } ?>
 							</tbody>
 						</table>
+						<button onClick="printElem('result')">Print</button>
+					</div>
 						<?php
 						}
 						?>
-					</div>
 					
-					<button onClick="printElem('result')">Print</button>
 
 					<!-- PAGE CONTENT ENDS -->
 				</div><!-- /.col -->
@@ -219,8 +220,10 @@
 
 	$(document).ready(function(){
 	    $("#warga").change(function()
-		{
-		    document.location.href = $(this).val();
+		{			
+			var url = "<?= base_url()."rw/pembayaran/perwarga/" ?>"+$(this).val();
+			// console.log(url);
+		    document.location.href = url;
 		});
 	});
 </script>
