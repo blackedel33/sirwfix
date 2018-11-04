@@ -13,7 +13,7 @@
       <b class="arrow"></b>
     </li>
 
-    <li class="">
+<!--     <li class="">
       <a href="#" class="dropdown-toggle">
         <i class="menu-icon fa fa-desktop"></i>
         <span class="menu-text">
@@ -89,7 +89,7 @@
         </li>
       </ul>
     </li>
-
+ -->
     <li class="">
       <a href="#" class="dropdown-toggle">
         <i class="menu-icon fa fa-list"></i>
@@ -101,14 +101,14 @@
       <b class="arrow"></b>
 
       <ul class="submenu">
-        <li class="">
+        <!-- <li class="">
           <a href="tables.html">
             <i class="menu-icon fa fa-caret-right"></i>
             Upload Bukti Pembayaran
           </a>
 
           <b class="arrow"></b>
-        </li>
+        </li> -->
 
         <li class="">
           <a href="<?= base_url() ?>admin/warga/tambah">
@@ -129,28 +129,28 @@
           <b class="arrow"></b>
         </li>
 
-        <li class="">
-          <a href="jqgrid.html">
+        <!-- <li class="">
+          <a href="#">
             <i class="menu-icon fa fa-caret-right"></i>
             Lihat Pengumuman
           </a>
 
           <b class="arrow"></b>
-        </li>
-        <li class="">
-          <a href="jqgrid.html">
+        </li> -->
+       <!--  <li class="">
+          <a href="#">
             <i class="menu-icon fa fa-caret-right"></i>
             Kritik dan Saran
           </a>
 
           <b class="arrow"></b>
-        </li>
+        </li> -->
       </ul>
     </li>
 
 
 
-    <li class="">
+    <!-- <li class="">
       <a href="#" class="dropdown-toggle">
         <i class="menu-icon fa fa-pencil-square-o"></i>
         <span class="menu-text"> Bendahara </span>
@@ -160,39 +160,39 @@
 
       <b class="arrow"></b>
 
-      <ul class="submenu">
+      <ul class="submenu"> -->
 
-        <li class="">
-          <a href="form-elements.html">
+    <!--     <li class="">
+          <a href="#">
             <i class="menu-icon fa fa-caret-right"></i>
             Lihat Pembayaran
           </a>
 
           <b class="arrow"></b>
-        </li>
+        </li> -->
 
-        <li class="">
-          <a href="form-elements.html">
+        <!-- <li class="">
+          <a href="#">
             <i class="menu-icon fa fa-caret-right"></i>
             Laporan Per Bulan
           </a>
 
           <b class="arrow"></b>
-        </li>
+        </li> -->
 
-        <li class="">
-          <a href="form-elements.html">
+        <!-- <li class="">
+          <a href="#">
             <i class="menu-icon fa fa-caret-right"></i>
             Laporan Per Warga
           </a>
 
           <b class="arrow"></b>
-        </li>
+        </li> -->
 
       </ul>
     </li>
 
-    <li class="">
+<!--     <li class="">
       <a href="#" class="dropdown-toggle">
         <i class="menu-icon fa fa-list-alt"></i>
         <span class="menu-text"> Sekretaris </span>
@@ -216,7 +216,7 @@
       </ul>
     </li>
 
-  </ul><!-- /.nav-list -->
+ -->  </ul><!-- /.nav-list -->
 
   <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
     <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>

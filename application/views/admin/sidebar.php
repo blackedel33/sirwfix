@@ -16,5 +16,8 @@ if ($hak_akses == "admin"){
   include 'menu/rw.php';
 } else if ($hak_akses == "warga"){
   include 'menu/warga.php';
+} else if ($hak_akses == "bendahara"){
+  include 'menu/bendahara.php';
 }
+
 ?>

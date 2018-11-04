@@ -17,7 +17,7 @@
       <a href="#" class="dropdown-toggle">
         <i class="menu-icon fa fa-desktop"></i>
         <span class="menu-text">
-          Warga
+          Bendahara
         </span>
 
         <b class="arrow fa fa-angle-down"></b>
@@ -26,32 +26,44 @@
       <b class="arrow"></b>
 
       <ul class="submenu">
-        <li class="">
-          <a href="<?= base_url() ?>warga/pengumuman">
+        <li>
+          <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-caret-right"></i>
-            Lihat Pengumuman
+
+            Verifikasi
+            <b class="arrow fa fa-angle-down"></b>
           </a>
 
           <b class="arrow"></b>
-        </li>
 
-        <li class="">
-          <a href="<?= base_url() ?>warga/Pembayaran">
+          <ul class="submenu">
+            <li class="">
+              <a href="<?= base_url("bendahara/Pembayaran") ?>">
+                <i class="menu-icon fa fa-caret-right"></i>
+                Pembayaran Warga
+              </a>
+
+              <b class="arrow"></b>
+            </li>
+
+            
+        <!-- <li class="">
+          <a href="<?= base_url() ?>rw/pengumuman">
             <i class="menu-icon fa fa-caret-right"></i>
-            Bayar Iuran
+            Pengumuman
           </a>
 
           <b class="arrow"></b>
-        </li>
+        </li> -->
 
-        <li class="">
-          <a href="<?= base_url() ?>warga/kritik">
+       <!--  <li class="">
+          <a href="<?= base_url() ?>rw/kritik">
             <i class="menu-icon fa fa-caret-right"></i>
-            Kritik/Saran
+            Lihat Kritik/Saran
           </a>
 
           <b class="arrow"></b>
-        </li>
+        </li> -->
         
       </ul>
     </li>
